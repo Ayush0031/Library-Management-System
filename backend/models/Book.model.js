@@ -3,20 +3,28 @@ const mongoose =require("mongoose")
 const bookSchema=mongoose.Schema({
     isbn:{
         type:String,
+        required: true,
         unique:true,
     },
     title:{
-        type:String
+        type:String,
+        required: true
     },
     genre:{
-        type:String
+        type:String,
+        required: true
     },
-    publicationDate:{
-        type:date,
+    publication_date:{
+        type:String,
+        required: true
     },
     publisher:{
-        type:String
-    }
+        type:String,
+        ref:'Publisher',
+        required: true,
+        
+    },
+    authors: [{ type: String, ref: 'Author' }],
 });
 
 module.exports=new mongoose.model("books",bookSchema);
