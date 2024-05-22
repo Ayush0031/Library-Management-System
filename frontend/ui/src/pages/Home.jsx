@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table';
+import { useNavigate } from 'react-router-dom';
 export default function Home() {
     const [books, setBooks] = useState([]);
+    const navigate=useNavigate();
     useEffect(() => {
         const fetchBooks = async () => {
             const data = await axios.get("http://localhost:5001/api/books/all")
@@ -11,7 +13,11 @@ export default function Home() {
         }
         fetchBooks()
     }, [])
-
+    const handleIssueBook = (isbn) => {
+        console.log(`Issuing book with ISBN: ${isbn}`);
+        navigate("/bookIssue")
+        
+    };
 
     return (
         <>
@@ -26,8 +32,8 @@ export default function Home() {
                                     <th>ISBN</th>
                                     <th>Title</th>
                                     <th>Genre</th>
-                                    <th>Details</th>
                                     <th>Actions</th>
+                                    <th>No of Volumes Available</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,10 +42,11 @@ export default function Home() {
                                         <td>{book.isbn}</td>
                                         <td>{book.title}</td>
                                         <td>{book.genre}</td>
-                                        <td>{book.details}</td>
+                                        
                                         <td>
                                             <button className="btn btn-success" onClick={() => handleIssueBook(book.isbn)}>Issue Book</button>
                                         </td>
+                                        <td>{book.qty}</td>
                                     </tr>
                                 ))}
                             </tbody>
