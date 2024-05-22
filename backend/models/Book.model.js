@@ -25,6 +25,10 @@ const bookSchema=mongoose.Schema({
         
     },
     authors: [{ type: String, ref: 'Author' }],
+    qty:{
+        type:Number
+    }
+    
 });
 
 module.exports=new mongoose.model("books",bookSchema);
