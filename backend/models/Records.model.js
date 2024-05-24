@@ -1,10 +1,10 @@
 const mongoose =require("mongoose")
 
 const recordSchema = new mongoose.Schema({
-    student: { type: String, ref: 'Student', required: true },  
-    book: { type: String, ref: 'Book', required: true },        
-    borrowing_date: { type: Date, required: true },             
-    return_date: { type: Date },                               
+    studentId: { type: String, ref: 'Student', required: true },  
+    isbn: { type: String, ref: 'Book', required: true },        
+    borrowing_date: { type: String, required: true },             
+    return_date: { type: String },                               
     fine: { type: Number, default: 0 }                          
 });
 

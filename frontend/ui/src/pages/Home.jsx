@@ -13,9 +13,9 @@ export default function Home() {
         }
         fetchBooks()
     }, [])
-    const handleIssueBook = (isbn) => {
-        console.log(`Issuing book with ISBN: ${isbn}`);
-        navigate("/bookIssue")
+    const handleIssueBook = (book) => {
+        console.log(book)
+        navigate("/bookIssue",{state:{book}})
         
     };
 
@@ -44,7 +44,7 @@ export default function Home() {
                                         <td>{book.genre}</td>
                                         
                                         <td>
-                                            <button className="btn btn-success" onClick={() => handleIssueBook(book.isbn)}>Issue Book</button>
+                                            <button className="btn btn-success" onClick={() => handleIssueBook(book)}>Issue Book</button>
                                         </td>
                                         <td>{book.qty}</td>
                                     </tr>

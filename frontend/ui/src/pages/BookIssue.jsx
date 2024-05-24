@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Header from '../components/Header';
-
-export default function BookIssue() {
-    
+import { useLocation } from 'react-router-dom';
+import axios from 'axios'
+export default function BookIssue(props) {
+    const location = useLocation();
+    const book = location.state.book;
     const {
         register,
         handleSubmit,
@@ -31,12 +33,23 @@ export default function BookIssue() {
         setValue('returnDate', newReturnDateStr)
     }
     useEffect(()=>{
-        
+    
     },[returnDate])
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        const records={
+            studentId:data.studentId,
+            isbn:book.isbn,
+            issueDate:data.issueDate,
+            returnDate:data.returnDate
+        }
         console.log(data);
-        // Add logic to handle form submission (e.g., issue the book)
+        await axios.post("http://localhost:5001/api/records/issue",records)
+        .then(()=>{
+            alert("book issued to student"+data.studentName)
+        }).catch((error)=>{
+            alert(error)
+        })
     };
 
     return (
@@ -52,7 +65,7 @@ export default function BookIssue() {
                               
                             </div>
                             <div style={inputContainer}>
-                                <label htmlFor="name" style={labelStyle}>Name</label>
+                                <label htmlFor="studentName" style={labelStyle}>Student Name</label>
                                 <input required style={inputStyle} id="name" {...register("name", { required: true })} placeholder="Name" />
                                
                             </div>
@@ -65,12 +78,12 @@ export default function BookIssue() {
                         <div className="col-6">
                             <div style={inputContainer}>
                                 <label htmlFor="isbn" style={labelStyle}>ISBN</label>
-                                <input required style={inputStyle} id="isbn" {...register("isbn", { required: true })} placeholder="ISBN" />
+                                <input  readOnly value={book.isbn} required style={inputStyle} id="isbn" {...register("isbn", { required: true })} placeholder="ISBN" />
                               
                             </div>
                             <div style={inputContainer}>
                                 <label htmlFor="bookName" style={labelStyle}>Book Name</label>
-                                <input required style={inputStyle} id="bookName" {...register("bookName", { required: true })} placeholder="Book Name" />
+                                <input  readOnly value={book.title} required style={inputStyle} id="bookName" {...register("bookName", { required: true })} placeholder="Book Name" />
                                
                             </div>
                             <div style={inputContainer}>
