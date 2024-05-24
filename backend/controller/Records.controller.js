@@ -24,5 +24,13 @@ const bookIssue=async(req,res)=>{
         res.status(400).send({msg:"Not able to Issue book"})
     }
 }
-
+const getAllIssuedBooks=async(req,res)=>{
+    try {
+        const data=Records.find();
+        console.log(data);
+        res.status(200).send(data)
+    } catch (error) {
+        res.status(400).send({msg:"Not able to get all book records"})
+    }
+}
 module.exports={bookIssue}
