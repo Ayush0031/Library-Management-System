@@ -48,6 +48,7 @@ export default function ReturnBook() {
 
     const onSubmit =async (data) => {
         const rec={
+            recordId:record._id,
             isbn:record.isbn,
             actualReturnDate:actualReturnDate,
             fine:fine
@@ -56,9 +57,10 @@ export default function ReturnBook() {
         await axios.post("http://localhost:5001/api/records/return",rec)
         .then(()=>{
             alert("book returned successfully")
+            navigate("/records")
 
         }).catch((error)=>{
-            console.log(error)
+            console.log(error.message)
             alert(error)
         })
     };

@@ -25,7 +25,7 @@ const returnBook = async(req,res)=>{
     console.log(req.body)
     try {
         const book= await Books.findOne({isbn:req.body.isbn})
-        const record= await Records.findOne({isbn:req.body.isbn})
+        const record= await Records.findOne({_id:req.body.recordId})
         await Records.findByIdAndUpdate(record._id,{
             return_status:"Returned",
             return_date:req.body.actualReturnDate,

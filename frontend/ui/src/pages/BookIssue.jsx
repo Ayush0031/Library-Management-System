@@ -46,7 +46,7 @@ export default function BookIssue(props) {
         console.log(data);
         await axios.post("http://localhost:5001/api/records/issue",records)
         .then(()=>{
-            alert("book issued to student"+data.studentName)
+            alert("book issued to student ->"+data.name)
         }).catch((error)=>{
             alert(error)
         })
