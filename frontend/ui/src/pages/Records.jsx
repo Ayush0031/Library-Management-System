@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 export default function Records() {
+
     const [records,setRecords]=useState([]);
     const navigate=useNavigate();
 
@@ -15,6 +16,10 @@ export default function Records() {
         }
         fetchRecords()
     }, [])
+    const handleReturnBook=(record)=>{
+        console.log(record)
+        navigate("/return",{state:{record}})
+    }
   return (
     <>
      <Header/>
@@ -41,7 +46,13 @@ export default function Records() {
                                         <td>{record.return_date}</td>
                                         <td>{record.fine}</td>
                                         {
-                                            record.return_status==="Pending"?<td style={{color:"red",fontSize:"20px"}}>{record.return_status} <button className="btn btn-danger">Return Book</button></td>
+                                            record.return_status==="Pending"
+                                            ?<td style={{color:"red",fontSize:"20px"}}>
+                                            {record.return_status} <button 
+                                            onClick={() => handleReturnBook(record)}
+                                            className="btn btn-danger">
+                                            Return Book</button>
+                                            </td>
                                             :<td style={{color:"green"}}>{record.return_status}</td>
                                         }
                                         

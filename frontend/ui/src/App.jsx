@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import BookIssue from './pages/BookIssue';
 import Records from './pages/Records';
+import ReturnBook from './pages/ReturnBook';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/bookIssue" element={<BookIssue/>}/>
       <Route path="/records" element={<Records/>}/>
+      <Route path="/return" element={<ReturnBook/>}/>
         <Route path="/add-book"/>
         <Route path="/add-author"  />
         <Route path="/add-publisher" />
