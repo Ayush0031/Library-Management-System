@@ -32,8 +32,8 @@ export default function Home() {
                                     <th>ISBN</th>
                                     <th>Title</th>
                                     <th>Genre</th>
-                                    <th>Actions</th>
                                     <th>No of Volumes Available</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,11 +42,17 @@ export default function Home() {
                                         <td>{book.isbn}</td>
                                         <td>{book.title}</td>
                                         <td>{book.genre}</td>
-                                        
-                                        <td>
-                                            <button className="btn btn-success" onClick={() => handleIssueBook(book)}>Issue Book</button>
-                                        </td>
                                         <td>{book.qty}</td>
+                                        {
+                                            book.qty>0?
+                                            <td>
+                                            
+                                            <button className="btn btn-success" onClick={() => handleIssueBook(book)}>Issue Book</button>
+                                            </td>:<td>
+                                               <p style={{color:"red"}}>No books left to issue</p>
+                                            </td>
+                                        }
+                                        
                                     </tr>
                                 ))}
                             </tbody>

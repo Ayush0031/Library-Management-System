@@ -66,7 +66,7 @@ export default function BookIssue(props) {
                             </div>
                             <div style={inputContainer}>
                                 <label htmlFor="studentName" style={labelStyle}>Student Name</label>
-                                <input required style={inputStyle} id="name" {...register("name", { required: true })} placeholder="Name" />
+                                <input required style={inputStyle} id="studentName" {...register("name", { required: true })} placeholder="Name" />
                                
                             </div>
                             <div style={inputContainer}>
