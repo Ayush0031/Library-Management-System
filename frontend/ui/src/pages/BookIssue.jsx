@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Header from '../components/Header';
 
 export default function BookIssue() {
+    
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm();
+
+    const getTodayDate = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    };
+
+    const getReturnDate = () => {
+        const returnDate = new Date();
+        returnDate.setDate(returnDate.getDate() + 14);
+        return returnDate.toISOString().split('T')[0];
+    };
+    const [returnDate,setReturnDate]=useState(getReturnDate());
+    const handleReturnDate=(e)=>{
+        e.preventDefault();
+        const newReturnDate = new Date(returnDate);
+        newReturnDate.setDate(newReturnDate.getDate() + 7);
+        const newReturnDateStr = newReturnDate.toISOString().split('T')[0];
+        setReturnDate(newReturnDateStr);
+        setValue('returnDate', newReturnDateStr)
+    }
+    useEffect(()=>{
+        
+    },[returnDate])
 
     const onSubmit = (data) => {
         console.log(data);
@@ -16,52 +41,112 @@ export default function BookIssue() {
 
     return (
         <>
-        <Header/>
-        <form onSubmit={handleSubmit(onSubmit)} style={formStyle}>
-            <div style={inputContainer}>
-                <input style={inputStyle} defaultValue="" {...register("studentId")} placeholder="Student ID" />
-            </div>
-            <div style={inputContainer}>
-                <input style={inputStyle} defaultValue="" {...register("name")} placeholder="Name" />
-                {errors.name && <span style={errorStyle}>This field is required</span>}
-            </div>
-            <div style={inputContainer}>
-                <input style={inputStyle} defaultValue="" {...register("email")} placeholder="Email" />
-                {errors.email && <span style={errorStyle}>This field is required</span>}
-            </div>
-            <div style={inputContainer}>
-                <input style={inputStyle} defaultValue="" {...register("isbn")} placeholder="ISBN" />
-                {errors.isbn && <span style={errorStyle}>This field is required</span>}
-            </div>
-            <div style={inputContainer}>
-                <input style={inputStyle} defaultValue="" {...register("bookName")} placeholder="Book Name" />
-                {errors.bookName && <span style={errorStyle}>This field is required</span>}
-            </div>
-            <input type="submit" style={submitButtonStyle} />
-        </form>
+            <Header />
+            <form onSubmit={handleSubmit(onSubmit)} style={formStyle}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-6">
+                            <div style={inputContainer}>
+                                <label htmlFor="studentId" style={labelStyle}>Student ID</label>
+                                <input required style={inputStyle} id="studentId" {...register("studentId", { required: true })} placeholder="Student ID" />
+                              
+                            </div>
+                            <div style={inputContainer}>
+                                <label htmlFor="name" style={labelStyle}>Name</label>
+                                <input required style={inputStyle} id="name" {...register("name", { required: true })} placeholder="Name" />
+                               
+                            </div>
+                            <div style={inputContainer}>
+                                <label htmlFor="email" style={labelStyle}>Email</label>
+                                <input required style={inputStyle} id="email" {...register("email", { required: true })} placeholder="Email" />
+                              
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div style={inputContainer}>
+                                <label htmlFor="isbn" style={labelStyle}>ISBN</label>
+                                <input required style={inputStyle} id="isbn" {...register("isbn", { required: true })} placeholder="ISBN" />
+                              
+                            </div>
+                            <div style={inputContainer}>
+                                <label htmlFor="bookName" style={labelStyle}>Book Name</label>
+                                <input required style={inputStyle} id="bookName" {...register("bookName", { required: true })} placeholder="Book Name" />
+                               
+                            </div>
+                            <div style={inputContainer}>
+                                <label htmlFor="issueDate" style={labelStyle}>Issue Date</label>
+                                <input
+                                    style={inputDateStyle}
+                                    id="issueDate"
+                                    defaultValue={getTodayDate()}
+                                    {...register("issueDate")}
+                                    placeholder="Issue Date"
+                                    readOnly
+                                />
+                            </div>
+                            <div style={inputContainer}>
+                                <label htmlFor="returnDate" style={labelStyle}>Return Date</label>
+                                <input
+                                    style={inputDateStyle}
+                                    id="returnDate"
+                                    value={returnDate}
+                                    {...register("returnDate")}
+                                    placeholder="Return Date"
+                                    readOnly
+                                />
+                                
+                            </div>
+                            <button type="button" className="btn btn-primary" onClick={handleReturnDate} style={{marginLeft:"100px"}} >Add 7 more days</button>
+                        </div>
+                    </div>
+                    <div style={submitContainer}>
+                        <input type="submit" style={submitButtonStyle} value="Issue Book" />
+                    </div>
+                </div>
+            </form>
         </>
     );
 }
+
 const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: '400px',
+    maxWidth: '800px',
     margin: '0 auto',
 };
 
 const inputContainer = {
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: '10px',
 };
 
 const inputStyle = {
     padding: '10px',
-    width: '100%',
+    marginLeft: '10px',
+    flex: '1',
+    backgroundColor: '#f0f0f0',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    
+};
+
+const inputDateStyle = {
+    padding: '10px',
+    marginLeft: '10px',
+    flex: '1',
+    backgroundColor: '#f0f0f0',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+};
+
+const labelStyle = {
+    fontWeight: 'bold',
+    width: '120px',
 };
 
 const errorStyle = {
     color: 'red',
     fontSize: '12px',
+    marginLeft: '10px',
 };
 
 const submitButtonStyle = {
@@ -74,3 +159,8 @@ const submitButtonStyle = {
     marginTop: '10px',
 };
 
+const submitContainer = {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px',
+};
