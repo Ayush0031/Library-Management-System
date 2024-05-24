@@ -10,6 +10,7 @@ const bookIssue=async(req,res)=>{
             isbn:req.body.isbn,
             borrowing_date:req.body.issueDate,
             return_date:req.body.returnDate,
+            return_status:"Pending"
             
 
         })
@@ -26,11 +27,11 @@ const bookIssue=async(req,res)=>{
 }
 const getAllIssuedBooks=async(req,res)=>{
     try {
-        const data=Records.find();
+        const data=await Records.find();
         console.log(data);
-        res.status(200).send(data)
+        res.status(200).json(data)
     } catch (error) {
         res.status(400).send({msg:"Not able to get all book records"})
     }
 }
-module.exports={bookIssue}
+module.exports={bookIssue,getAllIssuedBooks}

@@ -17,8 +17,8 @@ export default function Records() {
     }, [])
   return (
     <>
-      <Header />
-            <div className="container-fluid">
+     <Header/>
+            <div className="container-fluid mt-5">
                 <div className="row">
                     <div className="col">
                         <Table striped bordered hover>
@@ -29,18 +29,26 @@ export default function Records() {
                                     <th>ISSUED DATE</th>
                                     <th>RETURN DATE</th>
                                     <th>FINE</th>
+                                    <th>STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {records.map((record) => (
-                                    <tr key={record.isbn}>
+                                        <tr key={record._id}>
+                                        <td>{record.isbn}</td>
                                         <td>{record.studentId}</td>
                                         <td>{record.borrowing_date}</td>
                                         <td>{record.return_date}</td>
                                         <td>{record.fine}</td>
+                                        {
+                                            record.return_status==="Pending"?<td style={{color:"red",fontSize:"20px"}}>{record.return_status} <button className="btn btn-danger">Return Book</button></td>
+                                            :<td style={{color:"green"}}>{record.return_status}</td>
+                                        }
+                                        
                                         
                                     </tr>
                                 ))}
+
                             </tbody>
                         </Table>
                     </div>
