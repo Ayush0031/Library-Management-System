@@ -86,7 +86,7 @@ export default function Home() {
                             <p><strong>ISBN:</strong> {selectedBook.isbn}</p>
                             <p><strong>Title:</strong> {selectedBook.title}</p>
                             <p><strong>Genre:</strong> {selectedBook.genre}</p>
-                            <p><strong>Author:</strong> {selectedBook.author}</p>
+                            <p><strong>Author:</strong> {selectedBook.authors}</p>
                             <p><strong>Publisher:</strong> {selectedBook.publisher}</p>
                             <p><strong>Quantity:</strong> {selectedBook.qty}</p>
                         </>
