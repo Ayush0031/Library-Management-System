@@ -4,6 +4,7 @@ require('dotenv').config()
 const { mongoose } = require("mongoose");
 const bookRoute=require("./routes/Books.route.js")
 const recordRoute=require("./routes/Records.route.js")
+const studentRoute=require("./routes/Student.route.js")
 console.log(process.env)
 const PORT=process.env.PORT;
 const URI=process.env.MongoDBURI;
@@ -23,6 +24,7 @@ try {
 }
 app.use("/api/books",bookRoute)
 app.use("/api/records",recordRoute)
+app.use("/api/student",studentRoute)
 app.listen(PORT,()=>{
     console.log(`Server is Listening at port ${PORT}`)
 })
