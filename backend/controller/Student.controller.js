@@ -23,4 +23,4 @@ const getAllStudent=async(req,res)=>{
         res.status(500).json({msg:"Not able to add Student"})
     }
 }
-module.exports={addStudent,getAllStudent}
+module.exports={addStudent,getAllStudent,deleteStudent}
