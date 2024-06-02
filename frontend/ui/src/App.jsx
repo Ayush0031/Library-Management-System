@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import BookIssue from './pages/BookIssue';
 import Records from './pages/Records';
 import ReturnBook from './pages/ReturnBook';
+import AddStudent from './pages/AddStudent';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/bookIssue" element={<BookIssue/>}/>
       <Route path="/records" element={<Records/>}/>
       <Route path="/return" element={<ReturnBook/>}/>
+      <Route path="/addStudent" element={<AddStudent/>}/>
         <Route path="/add-book"/>
         <Route path="/add-author"  />
         <Route path="/add-publisher" />
