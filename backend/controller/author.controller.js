@@ -10,4 +10,14 @@ const createAuthor=async(req,res)=>{
         res.status(401).json({msg:"Not Able to add Books"})
     }
 }
+const deleteAuthor=async(req,res)=>{
+    
+    try {
+       await Author.deleteOne(req.body._id)
+       res.status(201).json("Author Deleted Successfully")
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({msg:"Not Able to add Books"})
+    }
+}
 module.exports={createAuthor}
