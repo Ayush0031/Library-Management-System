@@ -20,4 +20,14 @@ const deleteAuthor=async(req,res)=>{
         res.status(401).json({msg:"Not Able to add Books"})
     }
 }
-module.exports={createAuthor}
+const findByAuthorId=async(req,res)=>{
+    
+    try {
+       const author=await Author.findOne(req.body._id)
+       res.status(201).json(author)
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({msg:"Not Able to find author"})
+    }
+}
+module.exports={createAuthor,deleteAuthor}
